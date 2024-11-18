@@ -4,11 +4,11 @@ from enum import StrEnum
 # S - start
 # E - end
 
+
 class Tile(StrEnum):
     WALL = "#"
     START = "S"
     END = "E"
-    SEEN = "X"
 
 
 def find_start(maze: list[str]) -> tuple[int, int]:
@@ -18,8 +18,10 @@ def find_start(maze: list[str]) -> tuple[int, int]:
                 return (i, j)
     raise Exception("No starting point was found")
 
+
 def solve(maze: list[str]) -> list[tuple[int, int]]:
     path: list[tuple[int, int]] = []
+    seen: list[list[bool]] = [[False for tile in row] for row in maze]
     start = find_start(maze)
 
     print(start)
@@ -30,17 +32,17 @@ def solve(maze: list[str]) -> list[tuple[int, int]]:
 
         current = maze[i][j]
 
-        if current == Tile.WALL:
+        if seen[i][j]:
             return False
 
-        if current == Tile.SEEN:
+        if current == Tile.WALL:
             return False
 
         if current == Tile.END:
             path.append((i, j))
             return True
 
-        maze[i] = maze[i][:j] + Tile.SEEN + maze[i][j+1:]
+        seen[i][j] = True
 
         up = maze_walker(i-1, j)
         if up:
