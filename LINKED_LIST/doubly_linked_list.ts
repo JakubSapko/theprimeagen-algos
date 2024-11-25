@@ -47,10 +47,10 @@ export default class DoublyLinkedList<T> {
 
 		node.next = curr;
 		node.prev = curr.prev;
-		if (curr.prev) {
-			curr.prev.next = node;
-		}
 		curr.prev = node;
+		if (node.prev) {
+			node.prev.next = node;
+		}
 	}
 
 	append(item: T): void {
@@ -103,11 +103,11 @@ export default class DoublyLinkedList<T> {
 		}
 
 		if (node.prev) {
-			node.prev = node.next;
+			node.prev.next = node.next;
 		}
 
 		if (node.next) {
-			node.next = node.prev;
+			node.next.prev = node.prev;
 		}
 
 
