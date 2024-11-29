@@ -1,6 +1,8 @@
 type GraphEdge = { to: number; weight: number };
 type WeightedAdjacencyList = GraphEdge[][];
 
+
+// O(V + E)
 function walk(graph: WeightedAdjacencyList, curr: number, needle: number, seen: boolean[], path: number[]): boolean {
 
 	if (seen[curr]) {
